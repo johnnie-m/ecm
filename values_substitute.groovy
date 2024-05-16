@@ -68,7 +68,7 @@ pipeline {
                         envsubst < values.yml > values-${release}.yml
                         echo "showing values.yml"
                         echo "------------------------------------------------------"
-                        cat values.yml
+                        cat values-${release}.yml
                         echo "------------------------------------------------------"
 
                         '''
