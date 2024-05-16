@@ -12,15 +12,8 @@ pipeline {
         stage ('Clone git repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/johnnie-m/ecm.git', credentialsId: 'jm_git'
-            }
-        }
-
-        stage ('Fetch secrets') {
-            steps {
                 withCredentials([usernamePassword(credentialsId: 'vault-2', passwordVariable: 'vltPwd', usernameVariable: 'vltUsr')]) {
-                    script {
-                        sh "sudo ./fetch_vault_secrets.sh"
-                    }
+                    sh "sudo ./fetch_vault_secrets.sh"
                 }
             }
         }
