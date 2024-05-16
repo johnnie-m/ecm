@@ -19,7 +19,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'vault-2', passwordVariable: 'vltPwd', usernameVariable: 'vltUsr')]) {
                     script {
-                        sh "./fetch_vault_secrets.sh"
+                        sh "sudo ./fetch_vault_secrets.sh"
                     }
                 }
             }
