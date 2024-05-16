@@ -65,7 +65,7 @@ pipeline {
                         export SMTP_PASS=$(curl -H "X-Vault-Token: ${C_TOKEN}" -X GET ${vltUrl}/v1/medpult/data/elma365 2</dev/null | jq -r '.data.data.SMTP_PASS')
 
                         # Substitute variables to values file
-                        envsubst < values-${release}.yml > values.yml
+                        envsubst < values.yml > values-${release}.yml
                         echo "showing values.yml"
                         echo "------------------------------------------------------"
                         cat values.yml
