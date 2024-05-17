@@ -1,5 +1,10 @@
 #!/bin/bash
 
+source $CREDS
+envUrl=${ENV}_URL; vltUrl=${!envUrl}; echo $vltUrl
+envUsr=${ENV}_USER; vltUsr=${!envUsr}; echo $vltUsr
+envPwd=${ENV}_PASS; vltPwd=${!envPwd}; echo $vltPwd
+
 JSON=$( jq -n \
     --arg password $vltPwd \
     '$ARGS.named')
