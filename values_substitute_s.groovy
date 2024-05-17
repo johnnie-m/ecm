@@ -5,24 +5,32 @@ pipeline {
 
     environment {
     vltUrl='192.168.0.50:8200'
-    release='2024.2.10'
+    ENV='test'
     }
 
     stages {
 
         stage ('Clone git repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/johnnie-m/ecm.git', credentialsId: 'jm_git'
+                git branch: 'test', url: 'https://github.com/johnnie-m/ecm.git'
             }
         }
 
         stage ('Fetch secrets') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'vault-2', passwordVariable: 'vltPwd', usernameVariable: 'vltUsr')]) {
-                    script {
-                        sh "chmod +x ./script.sh"
-                        sh "./script.sh"                        
-                    }
+                withCredentials ([
+                    file(credentialsId: 'envs_vault_creds', variable: 'CREDS')]) {
+                    sh '''#!/bin/bash
+                    source $CREDS
+                    envUrl=${ENV}_URL; vltUrl=${!envUrl}; echo $vltUrl
+                    envUsr=${ENV}_USER; vltUsr=${!envUsr}; echo $vltUsr
+                    envPwd=${ENV}_PASS; vltPwd=${!envPwd}; echo $vltPwd
+                    '''
+                }
+
+                script {
+                    sh "chmod +x ./script.sh"
+                    sh "./script.sh"
                 }
             }
         }
