@@ -25,9 +25,10 @@ pipeline {
                     envUrl=${ENV}_URL; vltUrl=${!envUrl}; echo $vltUrl
                     envUsr=${ENV}_USER; vltUsr=${!envUsr}; echo $vltUsr
                     envPwd=${ENV}_PASS; vltPwd=${!envPwd}; echo $vltPwd
+                    
+                    chmod +x ./script.sh
+                    ./script.sh
                     '''
-                    sh "chmod +x ./script.sh"
-                    sh "./script.sh"
                 }
 
                 script {
