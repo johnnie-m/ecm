@@ -9,10 +9,11 @@ JSON=$( jq -n \
     --arg password $vltPwd \
     '$ARGS.named')
 echo $JSON
+
 # Fetch vault user token
-curl "${vltUrl}/v1/auth/userpass/login/${vltUsr}" --data "$JSON" | jq -r '.auth.client_token'
 C_TOKEN=$(curl "${vltUrl}/v1/auth/userpass/login/${vltUsr}" --data "$JSON" 2</dev/null | jq -r '.auth.client_token')
 echo $C_TOKEN
+
 # Fetch secrets and export to environment variables
 export HOSTNAME=$(curl -H "X-Vault-Token: ${C_TOKEN}" -X GET ${vltUrl}/v1/medpult/data/elma365 2</dev/null | jq -r '.data.data.HOSTNAME')
 export IMG_REP=$(curl -H "X-Vault-Token: ${C_TOKEN}" -X GET ${vltUrl}/v1/medpult/data/elma365 2</dev/null | jq -r '.data.data.IMG_REP')
