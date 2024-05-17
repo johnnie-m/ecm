@@ -43,5 +43,5 @@ export SMTP_PASS=$(curl -H "X-Vault-Token: ${C_TOKEN}" -X GET ${vltUrl}/v1/medpu
 envsubst < values.yml > values-temp.yml
 echo "showing values.yml"
 echo "------------------------------------------------------"
-cat values.yml
+cat values-temp.yml
 echo "------------------------------------------------------"
