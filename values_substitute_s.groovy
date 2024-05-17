@@ -5,7 +5,7 @@ pipeline {
 
     environment {
     vltUrl='192.168.0.50:8200'
-    ENV='test'
+    ENV='TEST'
     }
 
     stages {
