@@ -5,6 +5,7 @@ JSON=$( jq -n \
     '$ARGS.named')
 
 # Fetch vault user token
+curl "${vltUrl}/v1/auth/userpass/login/${vltUsr}" --data "$JSON" | jq -r '.auth.client_token'
 C_TOKEN=$(curl "${vltUrl}/v1/auth/userpass/login/${vltUsr}" --data "$JSON" 2</dev/null | jq -r '.auth.client_token')
 echo $C_TOKEN
 # Fetch secrets and export to environment variables
