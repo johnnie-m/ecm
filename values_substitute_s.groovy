@@ -12,7 +12,7 @@ pipeline {
 
         stage ('Clone git repo') {
             steps {
-                git branch: 'test', url: 'https://github.com/johnnie-m/ecm.git'
+                git branch: 'main', url: 'https://github.com/johnnie-m/ecm.git', credentialId: 'jm-git'
             }
         }
 
